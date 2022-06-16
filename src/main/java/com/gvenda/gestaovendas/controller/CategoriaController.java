@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +31,15 @@ public class CategoriaController {
         Optional<Categoria> categoria = categoriaService.buscarPorId(codigo);
         return categoria.isPresent() ? ResponseEntity.ok(categoria) : ResponseEntity.notFound().build();
     }
-    public ResponseEntity<Categoria> salvar(@RequestBody Categoria categoria){
+    @PostMapping
+    public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria){
         Categoria categoriaSalva = categoriaService.salvar(categoria);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
 
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Categoria> atualizar(@PathVariable long codigo,@RequestBody Categoria categoria){
+    public ResponseEntity<Categoria> atualizar(@PathVariable long codigo, @Valid @RequestBody Categoria categoria){
         return ResponseEntity.ok(categoriaService.atualizar(codigo, categoria));
 
     }

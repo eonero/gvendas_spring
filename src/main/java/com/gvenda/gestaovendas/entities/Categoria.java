@@ -1,7 +1,10 @@
 package com.gvenda.gestaovendas.entities;
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +16,9 @@ public class Categoria {
     @Column(name = "codigo")
     private Long codigo;
 
-    @Column
+    @Column(name = "nome")
+    @NotBlank(message = "nome")
+    @Length(min = 3, max =  50, message = "nome")
     private String nome;
 
 
